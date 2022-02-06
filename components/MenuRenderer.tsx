@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import * as React from 'react';
 import {
   Button,
@@ -6,14 +5,11 @@ import {
   MenuPopover,
   MenuTrigger,
   makeStyles,
-  FluentProvider,
-  teamsDarkTheme,
 } from '@fluentui/react-components';
 import { MainMenu } from '../components/MainMenu'
 import { QualityMenu } from '../components/QualityMenu'
-import { MenuProvider, useMenuSettings } from '../components/MenuProvider'
-import { MenuRenderer } from '../components/MenuRenderer'
-import Head from 'next/head'
+import { CaptionsMenu } from './CaptionsMenu'
+import { useMenuSettings, MenuStates } from './MenuProvider'
 
 export const useMenuListContainerStyles = makeStyles({
   container: theme => ({
@@ -55,22 +51,35 @@ export const useMenuListContainerStyles = makeStyles({
   })
 });
 
-export type MenuStates = 
-  | 'menu'
-  | 'captions'
-  | 'captionsSettings'
-  | 'captionsSize'
-  | 'captionsColor'
-  | 'quality'
+export function MenuRenderer() {
+  const styles = useMenuListContainerStyles();
+  const { settings } = useMenuSettings();
+  const { currentMenu } = settings
 
-const Home: NextPage = () => {
+  const renderMenu = (currentMenu: MenuStates) => {
+    switch(currentMenu) {
+      case 'menu':
+        return <MainMenu />
+      case 'quality':
+        return <QualityMenu />
+      case 'captions':
+        return <CaptionsMenu />
+      default:
+        return <MainMenu />
+    }
+  }
+
   return (
-    <FluentProvider theme={teamsDarkTheme}>
-      <MenuProvider>
-        <MenuRenderer />
-      </MenuProvider>
-    </FluentProvider>
+    <main className={styles.center}>
+      <Menu persistOnItemClick>
+        <MenuTrigger>
+          <Button>Toggle menu</Button>
+        </MenuTrigger>
+
+        <MenuPopover>
+          {renderMenu(currentMenu)}
+        </MenuPopover>
+        </Menu>
+    </main>
   )
 }
-
-export default Home
