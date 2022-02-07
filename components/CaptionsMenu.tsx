@@ -30,11 +30,11 @@ export function CaptionsMenu() {
 
   return (
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
+      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
         <ChevronLeft24Regular />
         {`Quality`}
       </Button>
-      <Divider />
+      <Divider aria-disabled />
       <MenuItemCheckbox name="captions" value="off">
         Off
       </MenuItemCheckbox>
@@ -42,7 +42,7 @@ export function CaptionsMenu() {
       <MenuItemCheckbox name="captions" value="Auto CC">
         Auto CC
       </MenuItemCheckbox>
-      <Divider />
+      <Divider aria-disabled />
       <MenuItem>
         <Button className={styles.buttonStyle}>
           <span>Settings</span>

@@ -5,6 +5,7 @@ import {
   MenuItemCheckbox,
   MenuList,
   MenuProps,
+  MenuDivider
 } from '@fluentui/react-components';
 import { ChevronLeft24Regular } from '@fluentui/react-icons';
 
@@ -29,11 +30,11 @@ export function QualityMenu() {
 
   return (
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
+      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onKeyDown={e => console.log(e.key)} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
         <ChevronLeft24Regular />
         {`Quality`}
       </Button>
-      <Divider />
+      <MenuDivider aria-disabled />
       <MenuItemCheckbox name="quality" value="auto">
         Auto
       </MenuItemCheckbox>

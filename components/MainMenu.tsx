@@ -15,28 +15,19 @@ export function MainMenu() {
 
   return (
     <MenuList className={styles.container}>
-      <MenuItem className={styles.itemStyle}>
-        <Button className={styles.buttonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captions' })}>
-          <span>Captions (Alt + C)</span>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span className={styles.itemTooltip}>{settings.captionsToggle ? 'Auto CC' : 'Off'}</span>
-            <ChevronRight20Regular />
-          </div>
-        </Button>
-      </MenuItem>
-      <MenuItem className={styles.itemStyle}>
-        <Button onClick={() => updateSettings({ ...settings, currentMenu: 'quality' })} className={styles.buttonStyle}>
+      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'quality' })}>
+        <div className={styles.buttonStyle}>
           <span>Quality</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span className={styles.itemTooltip}>{settings.quality.replace(/^\w/, (c) => c.toUpperCase())}</span>
             <ChevronRight20Regular />
           </div>
-        </Button>
+        </div>
       </MenuItem>
       <MenuItem className={styles.itemStyle}>
-        <Button className={styles.buttonStyle}>
+        <div className={styles.buttonStyle}>
           Keyboard shortcuts
-        </Button>
+        </div>
       </MenuItem>
     </MenuList>
   )

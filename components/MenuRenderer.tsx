@@ -62,8 +62,8 @@ export function MenuRenderer() {
         return <MainMenu />
       case 'quality':
         return <QualityMenu />
-      case 'captions':
-        return <CaptionsMenu />
+      // case 'captions':
+      //   return <CaptionsMenu />
       default:
         return <MainMenu />
     }
