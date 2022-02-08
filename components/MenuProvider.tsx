@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export type MenuStates = 'menu' | 'captions' | 'captionsSettings' | 'captionsSize' | 'captionsColor' | 'quality'
 
-export type MenuQuality = 'auto' | '1080p' | '720p' | '480p' | '240p'
+export type CaptionsMenuStates = 'menu' | 'captions-toggle' | 'captions-settings'
 
 type MenuSettings = {
   captionsToggle: boolean;
@@ -10,7 +10,8 @@ type MenuSettings = {
   captionsColor: 'standard' | 'standard-reverse' | 'purple' | 'purple-reverse';
   captionsBackgroundTransparency: boolean;
   quality: string,
-  currentMenu: MenuStates
+  currentMenu: MenuStates,
+  currentCaptionsMenu: CaptionsMenuStates,
 }
 
 type MenuContextData = {
@@ -24,7 +25,8 @@ const initalContextValue: MenuSettings = {
   captionsColor: 'standard',
   captionsBackgroundTransparency: true,
   quality: '720p',
-  currentMenu: 'menu'
+  currentMenu: 'menu',
+  currentCaptionsMenu: 'menu',
 }
 
 const MenuContext = React.createContext({} as MenuContextData)

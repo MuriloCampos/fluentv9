@@ -15,40 +15,11 @@ import { useMenuSettings } from '../components/MenuProvider'
 export function CaptionsMenu() {
   const styles = useMenuListContainerStyles();
   const { settings, updateSettings } = useMenuSettings();
-  const [checkedValues, setCheckedValues] = React.useState<Record<string, string[]>>({
-    captions: [settings.captionsToggle ? 'Auto CC' : 'off']
-  });
-
-  const onChange: MenuProps['onCheckedValueChange'] = (e, {
-    name,
-    checkedItems
-  }) => {
-    const newCheckedItem = checkedItems[checkedItems.length - 1]
-    updateSettings({ ...settings, captionsToggle: newCheckedItem === 'off' ? false : true })
-    setCheckedValues(() => ({ [name]: [newCheckedItem] }));
-  };
 
   return (
-    <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
-        <ChevronLeft24Regular />
-        {`Quality`}
-      </Button>
-      <Divider aria-disabled />
-      <MenuItemCheckbox name="captions" value="off">
-        Off
-      </MenuItemCheckbox>
-
-      <MenuItemCheckbox name="captions" value="Auto CC">
-        Auto CC
-      </MenuItemCheckbox>
-      <Divider aria-disabled />
-      <MenuItem>
-        <Button className={styles.buttonStyle}>
-          <span>Settings</span>
-          <ChevronRight24Regular />
-        </Button>
-      </MenuItem>
+    <MenuList className={styles.container}>
+      <MenuItem secondaryContent={settings.captionsToggle ? 'On' : 'Off'} onClick={() => updateSettings({ ...settings, currentCaptionsMenu: 'captions-toggle' })}>Captions / Subtitles</MenuItem>
+      <MenuItem>Captions / Subtitles settings</MenuItem>
     </MenuList>
   )
 }

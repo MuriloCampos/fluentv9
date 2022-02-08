@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   Button,
-  Divider,
   MenuItemCheckbox,
   MenuList,
   MenuProps,
@@ -9,7 +8,7 @@ import {
 } from '@fluentui/react-components';
 import { ChevronLeft24Regular } from '@fluentui/react-icons';
 
-import { useMenuListContainerStyles } from '../pages/index'
+import { useMenuListContainerStyles } from './MenuRenderer'
 import { useMenuSettings } from '../components/MenuProvider'
 
 export function QualityMenu() {

@@ -8,7 +8,6 @@ import {
 } from '@fluentui/react-components';
 import { MainMenu } from '../components/MainMenu'
 import { QualityMenu } from '../components/QualityMenu'
-import { CaptionsMenu } from './CaptionsMenu'
 import { useMenuSettings, MenuStates } from './MenuProvider'
 
 export const useMenuListContainerStyles = makeStyles({
@@ -52,8 +51,7 @@ export const useMenuListContainerStyles = makeStyles({
 });
 
 export function MenuRenderer() {
-  const styles = useMenuListContainerStyles();
-  const { settings } = useMenuSettings();
+  const { settings, updateSettings } = useMenuSettings();
   const { currentMenu } = settings
 
   const renderMenu = (currentMenu: MenuStates) => {
@@ -62,24 +60,24 @@ export function MenuRenderer() {
         return <MainMenu />
       case 'quality':
         return <QualityMenu />
-      // case 'captions':
-      //   return <CaptionsMenu />
       default:
         return <MainMenu />
     }
   }
 
   return (
-    <main className={styles.center}>
-      <Menu persistOnItemClick>
-        <MenuTrigger>
-          <Button>Toggle menu</Button>
-        </MenuTrigger>
+    <Menu persistOnItemClick onOpenChange={(_, data) => {
+      if(!data.open) {
+        updateSettings({ ...settings, currentMenu: 'menu' })
+      }
+    }}>
+      <MenuTrigger>
+        <Button>Playback settings</Button>
+      </MenuTrigger>
 
-        <MenuPopover>
-          {renderMenu(currentMenu)}
-        </MenuPopover>
-        </Menu>
-    </main>
+      <MenuPopover>
+        {renderMenu(currentMenu)}
+      </MenuPopover>
+      </Menu>
   )
 }

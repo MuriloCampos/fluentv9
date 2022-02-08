@@ -6,7 +6,7 @@ import {
   MenuList,
 } from '@fluentui/react-components';
 import { ChevronRight20Regular } from '@fluentui/react-icons';
-import { useMenuListContainerStyles, MenuStates } from '../pages/index'
+import { useMenuListContainerStyles } from './MenuRenderer'
 import { useMenuSettings } from './MenuProvider'
 
 export function MainMenu() {
@@ -15,14 +15,15 @@ export function MainMenu() {
 
   return (
     <MenuList className={styles.container}>
-      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'quality' })}>
-        <div className={styles.buttonStyle}>
+      <MenuItem className={styles.itemStyle} secondaryContent={settings.quality.replace(/^\w/, (c) => c.toUpperCase())} onClick={() => updateSettings({ ...settings, currentMenu: 'quality' })}>
+        Quality
+        {/* <div className={styles.buttonStyle}>
           <span>Quality</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span className={styles.itemTooltip}>{settings.quality.replace(/^\w/, (c) => c.toUpperCase())}</span>
             <ChevronRight20Regular />
           </div>
-        </div>
+        </div> */}
       </MenuItem>
       <MenuItem className={styles.itemStyle}>
         <div className={styles.buttonStyle}>
