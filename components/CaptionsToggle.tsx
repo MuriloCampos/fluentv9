@@ -32,7 +32,11 @@ export function CaptionsToggle() {
 
   return (
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
+      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.pop()
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <ChevronLeft24Regular />
         {`Captions (Alt + C)`}
       </Button>
@@ -45,7 +49,11 @@ export function CaptionsToggle() {
         Auto CC
       </MenuItemCheckbox>
       <MenuDivider />
-      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings', previousMenu: 'captions' })}>
+      <MenuItem onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.push('captionsSettings')
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <Button className={styles.buttonStyle}>
           <span>Settings</span>
           <ChevronRight24Regular />

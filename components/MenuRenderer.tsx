@@ -10,7 +10,6 @@ import {
 import { MainMenu } from '../components/MainMenu'
 import { QualityMenu } from '../components/QualityMenu'
 import { useMenuSettings, MenuStates } from './MenuProvider'
-import { CaptionsMenu } from './CaptionsMenu';
 import { CaptionsToggle } from './CaptionsToggle';
 import { CaptionsSettings } from './CaptionsSettings';
 import { CaptionsSize } from './CaptionsSize';
@@ -58,23 +57,25 @@ export const useMenuListContainerStyles = makeStyles({
 
 export function MenuRenderer() {
   const { settings, updateSettings } = useMenuSettings();
-  const { currentMenu } = settings;
+  const { menuNavigation } = settings;
+  const currentMenu = menuNavigation[menuNavigation.length - 1];
   const [open, setOpen] = React.useState(false);
   const onOpenChange: MenuProps['onOpenChange'] = (e, data) => {
     if (e.type === 'keydown' && e.nativeEvent && e.nativeEvent.key === 'Escape') {
-      console.log('handle esc')
       if (currentMenu === 'menu') {
         setOpen(data.open);
         if(!data.open) {
-          updateSettings({ ...settings, currentMenu: 'menu' })
+          updateSettings({ ...settings, menuNavigation: ['menu'] })
         }
       } else {
-        updateSettings({ ...settings, currentMenu: settings.previousMenu })
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.pop()
+        updateSettings({ ...settings, menuNavigation: currentNavigation.length > 0 ? [...currentNavigation] : ['menu'] })
       }
     } else {
       setOpen(data.open);
       if(!data.open) {
-        updateSettings({ ...settings, currentMenu: 'menu' })
+        updateSettings({ ...settings, menuNavigation: ['menu'] })
       }
     }
   };

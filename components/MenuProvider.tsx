@@ -2,17 +2,13 @@ import * as React from 'react';
 
 export type MenuStates = 'menu' | 'captions' | 'captionsSettings' | 'captionsSize' | 'captionsColor' | 'quality'
 
-export type CaptionsMenuStates = 'menu' | 'captions-toggle' | 'captions-settings'
-
 type MenuSettings = {
   captionsToggle: boolean;
   captionsSize: string;
   captionsColor: string;
   captionsBackgroundTransparency: boolean;
   quality: string,
-  currentMenu: MenuStates,
-  previousMenu: MenuStates,
-  currentCaptionsMenu: CaptionsMenuStates,
+  menuNavigation: MenuStates[],
 }
 
 type MenuContextData = {
@@ -26,15 +22,14 @@ const initalContextValue: MenuSettings = {
   captionsColor: 'standard',
   captionsBackgroundTransparency: true,
   quality: '720p',
-  currentMenu: 'menu',
-  currentCaptionsMenu: 'menu',
-  previousMenu: 'menu',
+  menuNavigation: ['menu'],
 }
 
 const MenuContext = React.createContext({} as MenuContextData)
 
 export const MenuProvider: React.FC = ({ children }) => {
   const [settings, setSettings] = React.useState(initalContextValue)
+  console.log(settings.menuNavigation)
 
   function updateSettings(newSettings: MenuSettings) {
     setSettings(current => {

@@ -5,7 +5,6 @@ import {
   MenuItemCheckbox,
   MenuList,
   MenuProps,
-  MenuItem,
 } from '@fluentui/react-components';
 import { ChevronLeft24Regular } from '@fluentui/react-icons';
 
@@ -32,7 +31,11 @@ export function CaptionsColor() {
 
   return(
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button aria-roledescription='back to captions settings menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings' })}>
+      <Button aria-roledescription='back to captions settings menu' className={styles.backButtonStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.pop()
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <ChevronLeft24Regular />
         {`Color`}
       </Button>

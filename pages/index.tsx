@@ -3,11 +3,10 @@ import * as React from 'react';
 import {
   makeStyles,
   FluentProvider,
-  teamsDarkTheme,
+  webDarkTheme,
 } from '@fluentui/react-components';
 import { MenuProvider } from '../components/MenuProvider'
 import { MenuRenderer } from '../components/MenuRenderer'
-import { CaptionsMenuRenderer } from '../components/CaptionsMenuRenderer'
 
 export const useMenuListContainerStyles = makeStyles({
   container: theme => ({
@@ -53,7 +52,7 @@ const Home: NextPage = () => {
   const styles = useMenuListContainerStyles();
 
   return (
-    <FluentProvider theme={teamsDarkTheme}>
+    <FluentProvider theme={webDarkTheme}>
       <MenuProvider>
         <main className={styles.center}>
           <MenuRenderer />

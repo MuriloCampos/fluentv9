@@ -31,11 +31,15 @@ export function QualityMenu() {
 
   return (
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onKeyDown={e => console.log(e.key)} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
+      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.pop()
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <ChevronLeft24Regular />
         {`Quality`}
       </Button>
-      <MenuDivider aria-disabled />
+      <MenuDivider />
       <MenuItemCheckbox name="quality" value="auto">
         Auto
       </MenuItemCheckbox>

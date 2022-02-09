@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {
-  Button,
-  Menu,
   MenuItem,
   MenuList,
 } from '@fluentui/react-components';
@@ -15,7 +13,11 @@ export function MainMenu() {
 
   return (
     <MenuList className={styles.container}>
-      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captions', previousMenu: 'menu' })}>
+      <MenuItem onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.push('captions')
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <div className={styles.buttonStyle}>
           <span>Captions (Alt + C)</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -24,7 +26,11 @@ export function MainMenu() {
           </div>
         </div>
       </MenuItem>
-      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'quality', previousMenu: 'menu' })}>
+      <MenuItem className={styles.itemStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.push('quality')
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <div className={styles.buttonStyle}>
           <span>Quality</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>

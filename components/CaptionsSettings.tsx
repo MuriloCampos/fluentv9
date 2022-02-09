@@ -2,9 +2,7 @@ import * as React from 'react';
 import {
   Button,
   MenuDivider,
-  MenuItemCheckbox,
   MenuList,
-  MenuProps,
   MenuItem,
 } from '@fluentui/react-components';
 import { Switch } from '@fluentui/react-switch';
@@ -20,13 +18,21 @@ export function CaptionsSettings() {
   
   return (
     <MenuList className={styles.container}>
-      <Button aria-roledescription='back to captions menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captions' })}>
+      <Button aria-roledescription='back to captions menu' className={styles.backButtonStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.pop()
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <ChevronLeft24Regular />
         {`Settings`}
       </Button>
       <MenuDivider />
 
-      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSize', previousMenu: 'captionsSettings' })}>
+      <MenuItem className={styles.itemStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.push('captionsSize')
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <div className={styles.buttonStyle}>
           <span>Size</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -36,7 +42,11 @@ export function CaptionsSettings() {
         </div>
       </MenuItem>
 
-      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsColor', previousMenu: 'captionsSettings' })}>
+      <MenuItem className={styles.itemStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.push('captionsColor')
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <div className={styles.buttonStyle}>
           <span>Color</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -56,7 +66,7 @@ export function CaptionsSettings() {
                 setSwitchValue(current => !current)
                 updateSettings({ ...settings, captionsBackgroundTransparency: !settings.captionsBackgroundTransparency })
               }
-            }} checked={switchValue} onChange={(e, data) => {
+            }} checked={switchValue} onChange={(_, data) => {
               setSwitchValue(data.checked)
               updateSettings({ ...settings, captionsBackgroundTransparency: data.checked })
             }} />

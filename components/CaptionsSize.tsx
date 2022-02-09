@@ -5,9 +5,8 @@ import {
   MenuItemCheckbox,
   MenuList,
   MenuProps,
-  MenuItem,
 } from '@fluentui/react-components';
-import { ChevronLeft24Regular, ChevronRight24Regular } from '@fluentui/react-icons';
+import { ChevronLeft24Regular } from '@fluentui/react-icons';
 
 import { useMenuListContainerStyles } from '../pages/index'
 import { useMenuSettings } from '../components/MenuProvider'
@@ -18,7 +17,6 @@ export function CaptionsSize() {
   const [checkedValues, setCheckedValues] = React.useState<Record<string, string[]>>({
     captionsSize: [settings.captionsSize]
   });
-  console.log(checkedValues)
 
   const onChange: MenuProps['onCheckedValueChange'] = (e, {
     name,
@@ -33,7 +31,11 @@ export function CaptionsSize() {
 
   return(
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button aria-roledescription='back to captions settings menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings' })}>
+      <Button aria-roledescription='back to captions settings menu' className={styles.backButtonStyle} onClick={() => {
+        const currentNavigation = [...settings.menuNavigation]
+        currentNavigation.pop()
+        updateSettings({ ...settings, menuNavigation: [...currentNavigation] })
+      }}>
         <ChevronLeft24Regular />
         {`Size`}
       </Button>
