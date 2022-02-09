@@ -12,12 +12,13 @@ import { ChevronLeft24Regular, ChevronRight24Regular } from '@fluentui/react-ico
 import { useMenuListContainerStyles } from '../pages/index'
 import { useMenuSettings } from '../components/MenuProvider'
 
-export function CaptionsToggle() {
+export function CaptionsSize() {
   const styles = useMenuListContainerStyles();
   const { settings, updateSettings } = useMenuSettings();
   const [checkedValues, setCheckedValues] = React.useState<Record<string, string[]>>({
-    captions: [settings.captionsToggle ? 'Auto CC' : 'off']
+    captionsSize: [settings.captionsSize]
   });
+  console.log(checkedValues)
 
   const onChange: MenuProps['onCheckedValueChange'] = (e, {
     name,
@@ -25,32 +26,30 @@ export function CaptionsToggle() {
   }) => {
     const newCheckedItem = checkedItems[checkedItems.length - 1]
     if (newCheckedItem) {
-      updateSettings({ ...settings, captionsToggle: newCheckedItem === 'off' ? false : true })
+      updateSettings({ ...settings, captionsSize: newCheckedItem })
       setCheckedValues(() => ({ [name]: [newCheckedItem] }));
     }
   };
 
-  return (
+  return(
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
+      <Button aria-roledescription='back to captions settings menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings' })}>
         <ChevronLeft24Regular />
-        {`Captions (Alt + C)`}
+        {`Size`}
       </Button>
       <MenuDivider />
-      <MenuItemCheckbox name="captions" value="off">
-        Off
+
+      <MenuItemCheckbox name="captionsSize" value="small">
+        Small
       </MenuItemCheckbox>
 
-      <MenuItemCheckbox name="captions" value="Auto CC">
-        Auto CC
+      <MenuItemCheckbox name="captionsSize" value="medium">
+        Medium
       </MenuItemCheckbox>
-      <MenuDivider />
-      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings' })}>
-        <Button className={styles.buttonStyle}>
-          <span>Settings</span>
-          <ChevronRight24Regular />
-        </Button>
-      </MenuItem>
+
+      <MenuItemCheckbox name="captionsSize" value="large">
+        Large
+      </MenuItemCheckbox>
     </MenuList>
   )
 }

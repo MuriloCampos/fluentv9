@@ -23,8 +23,10 @@ export function QualityMenu() {
     checkedItems
   }) => {
     const newCheckedItem = checkedItems[checkedItems.length - 1]
-    updateSettings({ ...settings, quality: newCheckedItem })
-    setCheckedValues(() => ({ [name]: [newCheckedItem] }));
+    if (newCheckedItem) {
+      updateSettings({ ...settings, quality: newCheckedItem })
+      setCheckedValues(() => ({ [name]: [newCheckedItem] }));
+    }
   };
 
   return (

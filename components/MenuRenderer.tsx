@@ -9,6 +9,11 @@ import {
 import { MainMenu } from '../components/MainMenu'
 import { QualityMenu } from '../components/QualityMenu'
 import { useMenuSettings, MenuStates } from './MenuProvider'
+import { CaptionsMenu } from './CaptionsMenu';
+import { CaptionsToggle } from './CaptionsToggle';
+import { CaptionsSettings } from './CaptionsSettings';
+import { CaptionsSize } from './CaptionsSize';
+import { CaptionsColor } from './CaptionsColor';
 
 export const useMenuListContainerStyles = makeStyles({
   container: theme => ({
@@ -60,6 +65,14 @@ export function MenuRenderer() {
         return <MainMenu />
       case 'quality':
         return <QualityMenu />
+      case 'captions':
+        return <CaptionsToggle />
+      case 'captionsSettings':
+        return <CaptionsSettings />
+      case 'captionsSize':
+        return <CaptionsSize />
+      case 'captionsColor':
+        return <CaptionsColor />
       default:
         return <MainMenu />
     }

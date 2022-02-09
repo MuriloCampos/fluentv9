@@ -6,8 +6,8 @@ export type CaptionsMenuStates = 'menu' | 'captions-toggle' | 'captions-settings
 
 type MenuSettings = {
   captionsToggle: boolean;
-  captionsSize: 'small' | 'medium' | 'large';
-  captionsColor: 'standard' | 'standard-reverse' | 'purple' | 'purple-reverse';
+  captionsSize: string;
+  captionsColor: string;
   captionsBackgroundTransparency: boolean;
   quality: string,
   currentMenu: MenuStates,

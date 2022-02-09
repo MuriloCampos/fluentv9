@@ -18,8 +18,21 @@ export function CaptionsMenu() {
 
   return (
     <MenuList className={styles.container}>
-      <MenuItem secondaryContent={settings.captionsToggle ? 'On' : 'Off'} onClick={() => updateSettings({ ...settings, currentCaptionsMenu: 'captions-toggle' })}>Captions / Subtitles</MenuItem>
-      <MenuItem>Captions / Subtitles settings</MenuItem>
+      <MenuItem secondaryContent={settings.captionsToggle ? 'On' : 'Off'} onClick={() => updateSettings({ ...settings, currentCaptionsMenu: 'menu' })}>
+        <div className={styles.buttonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captions' })}>
+          <span>Captions (Alt + C)</span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span className={styles.itemTooltip}>{settings.captionsToggle ? 'Auto CC' : 'Off'}</span>
+            <ChevronLeft24Regular />
+          </div>
+        </div>
+      </MenuItem>
+      <MenuItem>
+        <div className={styles.buttonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captions' })}>
+          <span>Settings</span>
+          <ChevronRight24Regular />
+        </div>
+      </MenuItem>
     </MenuList>
   )
 }

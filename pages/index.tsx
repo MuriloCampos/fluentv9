@@ -57,7 +57,7 @@ const Home: NextPage = () => {
       <MenuProvider>
         <main className={styles.center}>
           <MenuRenderer />
-          <CaptionsMenuRenderer />
+          {/* <CaptionsMenuRenderer /> */}
         </main>
       </MenuProvider>
     </FluentProvider>

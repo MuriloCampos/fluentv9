@@ -12,11 +12,11 @@ import { ChevronLeft24Regular, ChevronRight24Regular } from '@fluentui/react-ico
 import { useMenuListContainerStyles } from '../pages/index'
 import { useMenuSettings } from '../components/MenuProvider'
 
-export function CaptionsToggle() {
+export function CaptionsColor() {
   const styles = useMenuListContainerStyles();
   const { settings, updateSettings } = useMenuSettings();
   const [checkedValues, setCheckedValues] = React.useState<Record<string, string[]>>({
-    captions: [settings.captionsToggle ? 'Auto CC' : 'off']
+    captionsColor: [settings.captionsColor]
   });
 
   const onChange: MenuProps['onCheckedValueChange'] = (e, {
@@ -25,32 +25,34 @@ export function CaptionsToggle() {
   }) => {
     const newCheckedItem = checkedItems[checkedItems.length - 1]
     if (newCheckedItem) {
-      updateSettings({ ...settings, captionsToggle: newCheckedItem === 'off' ? false : true })
+      updateSettings({ ...settings, captionsColor: newCheckedItem })
       setCheckedValues(() => ({ [name]: [newCheckedItem] }));
     }
   };
 
-  return (
+  return(
     <MenuList className={styles.container} checkedValues={checkedValues} onCheckedValueChange={onChange}>
-      <Button aria-roledescription='back to home menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'menu' })}>
+      <Button aria-roledescription='back to captions settings menu' className={styles.backButtonStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings' })}>
         <ChevronLeft24Regular />
-        {`Captions (Alt + C)`}
+        {`Color`}
       </Button>
       <MenuDivider />
-      <MenuItemCheckbox name="captions" value="off">
-        Off
+
+      <MenuItemCheckbox name="captionsColor" value="standard">
+        Standard
       </MenuItemCheckbox>
 
-      <MenuItemCheckbox name="captions" value="Auto CC">
-        Auto CC
+      <MenuItemCheckbox name="captionsColor" value="standard-reverse">
+        Standard reverse
       </MenuItemCheckbox>
-      <MenuDivider />
-      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings' })}>
-        <Button className={styles.buttonStyle}>
-          <span>Settings</span>
-          <ChevronRight24Regular />
-        </Button>
-      </MenuItem>
+
+      <MenuItemCheckbox name="captionsColor" value="purple">
+        Purple
+      </MenuItemCheckbox>
+
+      <MenuItemCheckbox name="captionsColor" value="purple-reverse">
+        Purple reverse
+      </MenuItemCheckbox>
     </MenuList>
   )
 }

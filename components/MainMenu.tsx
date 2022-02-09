@@ -15,15 +15,23 @@ export function MainMenu() {
 
   return (
     <MenuList className={styles.container}>
-      <MenuItem className={styles.itemStyle} secondaryContent={settings.quality.replace(/^\w/, (c) => c.toUpperCase())} onClick={() => updateSettings({ ...settings, currentMenu: 'quality' })}>
-        Quality
-        {/* <div className={styles.buttonStyle}>
+      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captions' })}>
+        <div className={styles.buttonStyle}>
+          <span>Captions (Alt + C)</span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span className={styles.itemTooltip}>{settings.captionsToggle ? 'Auto CC' : 'Off'}</span>
+            <ChevronRight20Regular style={{ marginLeft: 12 }} />
+          </div>
+        </div>
+      </MenuItem>
+      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'quality' })}>
+        <div className={styles.buttonStyle}>
           <span>Quality</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span className={styles.itemTooltip}>{settings.quality.replace(/^\w/, (c) => c.toUpperCase())}</span>
-            <ChevronRight20Regular />
+            <ChevronRight20Regular style={{ marginLeft: 12 }} />
           </div>
-        </div> */}
+        </div>
       </MenuItem>
       <MenuItem className={styles.itemStyle}>
         <div className={styles.buttonStyle}>
