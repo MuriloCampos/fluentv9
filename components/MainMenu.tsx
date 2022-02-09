@@ -15,7 +15,7 @@ export function MainMenu() {
 
   return (
     <MenuList className={styles.container}>
-      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captions' })}>
+      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captions', previousMenu: 'menu' })}>
         <div className={styles.buttonStyle}>
           <span>Captions (Alt + C)</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -24,7 +24,7 @@ export function MainMenu() {
           </div>
         </div>
       </MenuItem>
-      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'quality' })}>
+      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'quality', previousMenu: 'menu' })}>
         <div className={styles.buttonStyle}>
           <span>Quality</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>

@@ -7,7 +7,7 @@ import {
   MenuProps,
   MenuItem,
 } from '@fluentui/react-components';
-import { ChevronLeft24Regular, ChevronRight24Regular } from '@fluentui/react-icons';
+import { ChevronLeft24Regular } from '@fluentui/react-icons';
 
 import { useMenuListContainerStyles } from '../pages/index'
 import { useMenuSettings } from '../components/MenuProvider'

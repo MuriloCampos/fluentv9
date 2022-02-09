@@ -26,7 +26,7 @@ export function CaptionsSettings() {
       </Button>
       <MenuDivider />
 
-      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSize' })}>
+      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSize', previousMenu: 'captionsSettings' })}>
         <div className={styles.buttonStyle}>
           <span>Size</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -36,7 +36,7 @@ export function CaptionsSettings() {
         </div>
       </MenuItem>
 
-      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsColor' })}>
+      <MenuItem className={styles.itemStyle} onClick={() => updateSettings({ ...settings, currentMenu: 'captionsColor', previousMenu: 'captionsSettings' })}>
         <div className={styles.buttonStyle}>
           <span>Color</span>
           <div style={{ display: 'flex', alignItems: 'center' }}>

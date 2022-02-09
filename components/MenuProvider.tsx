@@ -11,6 +11,7 @@ type MenuSettings = {
   captionsBackgroundTransparency: boolean;
   quality: string,
   currentMenu: MenuStates,
+  previousMenu: MenuStates,
   currentCaptionsMenu: CaptionsMenuStates,
 }
 
@@ -27,6 +28,7 @@ const initalContextValue: MenuSettings = {
   quality: '720p',
   currentMenu: 'menu',
   currentCaptionsMenu: 'menu',
+  previousMenu: 'menu',
 }
 
 const MenuContext = React.createContext({} as MenuContextData)

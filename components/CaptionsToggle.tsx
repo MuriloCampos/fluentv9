@@ -45,7 +45,7 @@ export function CaptionsToggle() {
         Auto CC
       </MenuItemCheckbox>
       <MenuDivider />
-      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings' })}>
+      <MenuItem onClick={() => updateSettings({ ...settings, currentMenu: 'captionsSettings', previousMenu: 'captions' })}>
         <Button className={styles.buttonStyle}>
           <span>Settings</span>
           <ChevronRight24Regular />

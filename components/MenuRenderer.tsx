@@ -5,6 +5,7 @@ import {
   MenuPopover,
   MenuTrigger,
   makeStyles,
+  MenuProps,
 } from '@fluentui/react-components';
 import { MainMenu } from '../components/MainMenu'
 import { QualityMenu } from '../components/QualityMenu'
@@ -57,7 +58,26 @@ export const useMenuListContainerStyles = makeStyles({
 
 export function MenuRenderer() {
   const { settings, updateSettings } = useMenuSettings();
-  const { currentMenu } = settings
+  const { currentMenu } = settings;
+  const [open, setOpen] = React.useState(false);
+  const onOpenChange: MenuProps['onOpenChange'] = (e, data) => {
+    if (e.type === 'keydown' && e.nativeEvent && e.nativeEvent.key === 'Escape') {
+      console.log('handle esc')
+      if (currentMenu === 'menu') {
+        setOpen(data.open);
+        if(!data.open) {
+          updateSettings({ ...settings, currentMenu: 'menu' })
+        }
+      } else {
+        updateSettings({ ...settings, currentMenu: settings.previousMenu })
+      }
+    } else {
+      setOpen(data.open);
+      if(!data.open) {
+        updateSettings({ ...settings, currentMenu: 'menu' })
+      }
+    }
+  };
 
   const renderMenu = (currentMenu: MenuStates) => {
     switch(currentMenu) {
@@ -79,11 +99,7 @@ export function MenuRenderer() {
   }
 
   return (
-    <Menu persistOnItemClick onOpenChange={(_, data) => {
-      if(!data.open) {
-        updateSettings({ ...settings, currentMenu: 'menu' })
-      }
-    }}>
+    <Menu persistOnItemClick open={open} onOpenChange={onOpenChange}>
       <MenuTrigger>
         <Button>Playback settings</Button>
       </MenuTrigger>
