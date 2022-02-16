@@ -1,103 +1,53 @@
 import * as React from 'react';
-import {
-  Button,
-  Menu,
-  MenuPopover,
-  MenuTrigger,
-  makeStyles,
-  MenuProps,
-} from '@fluentui/react-components';
-import { MainMenu } from '../components/MainMenu'
-import { QualityMenu } from '../components/QualityMenu'
-import { useMenuSettings, MenuStates } from './MenuProvider'
-import { CaptionsToggle } from './CaptionsToggle';
-import { CaptionsSettings } from './CaptionsSettings';
-import { CaptionsSize } from './CaptionsSize';
-import { CaptionsColor } from './CaptionsColor';
+import { Button, Menu, MenuPopover, MenuTrigger, MenuProps } from '@fluentui/react-components';
 
-export const useMenuListContainerStyles = makeStyles({
-  container: theme => ({
-    backgroundColor: 'rgba(41, 40, 39, 0.8)',
-    width: '275px',
-    boxShadow: `${theme.shadow16}`,
-    borderRadius: '2px',
-    color: '#F3F2F1'
-  }),
-  center: () => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100vw',
-    height: '100vh'
-  }),
-  buttonStyle: () => ({
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    border: 'none',
-    outline: 'none',
-    padding: 0
-  }),
-  backButtonStyle: () => ({
-    width: '100%',
-    border: 'none',
-    outline: 'none',
-    padding: '8px',
-    display: 'flex',
-    justifyContent: 'flex-start ' 
-  }),
-  itemStyle: () => ({
-    padding: '8px',
-  }),
-  itemTooltip: () => ({
-    color: '#C8C6C4',
-    padding: 0,
-  })
-});
+import { useMenuSettings, MenuStates } from './MenuProvider';
+import {
+  CaptionsColor,
+  CaptionsSize,
+  CaptionsSettings,
+  CaptionsToggle,
+  QualityMenu,
+  MainMenu
+} from './MenuPages';
 
 export function MenuRenderer() {
-  const { settings, updateSettings } = useMenuSettings();
+  const { settings, updateSettings, navigateBack } = useMenuSettings();
   const { menuNavigation } = settings;
   const currentMenu = menuNavigation[menuNavigation.length - 1];
   const [open, setOpen] = React.useState(false);
-  const onOpenChange: MenuProps['onOpenChange'] = (e, data) => {
-    if (e.type === 'keydown' && e.nativeEvent && e.nativeEvent.key === 'Escape') {
-      if (currentMenu === 'menu') {
-        setOpen(data.open);
-        if(!data.open) {
-          updateSettings({ ...settings, menuNavigation: ['menu'] })
-        }
-      } else {
-        const currentNavigation = [...settings.menuNavigation]
-        currentNavigation.pop()
-        updateSettings({ ...settings, menuNavigation: currentNavigation.length > 0 ? [...currentNavigation] : ['menu'] })
-      }
+
+  const onOpenChange: MenuProps['onOpenChange'] = (e: any, data) => {
+    // If the user is in a submenu, handle ESC key navigation to go back to
+    // the parent menu instead of closing the menu popover
+    if (e.type === 'keydown' && e.nativeEvent && e.nativeEvent.key === 'Escape' && currentMenu !== 'menu') {
+      navigateBack();
     } else {
       setOpen(data.open);
-      if(!data.open) {
-        updateSettings({ ...settings, menuNavigation: ['menu'] })
+
+      // The user might be closing the popover by clicking outside, so we need to reset the navigation stack here
+      if (!data.open) {
+        updateSettings({ ...settings, menuNavigation: ['menu'] });
       }
     }
   };
 
   const renderMenu = (currentMenu: MenuStates) => {
-    switch(currentMenu) {
+    switch (currentMenu) {
       case 'menu':
-        return <MainMenu />
+        return <MainMenu />;
       case 'quality':
-        return <QualityMenu />
+        return <QualityMenu />;
       case 'captions':
-        return <CaptionsToggle />
+        return <CaptionsToggle />;
       case 'captionsSettings':
-        return <CaptionsSettings />
+        return <CaptionsSettings />;
       case 'captionsSize':
-        return <CaptionsSize />
+        return <CaptionsSize />;
       case 'captionsColor':
-        return <CaptionsColor />
-      default:
-        return <MainMenu />
+        return <CaptionsColor />;
     }
-  }
+  };
 
   return (
     <Menu persistOnItemClick open={open} onOpenChange={onOpenChange}>
@@ -105,9 +55,7 @@ export function MenuRenderer() {
         <Button>Playback settings</Button>
       </MenuTrigger>
 
-      <MenuPopover>
-        {renderMenu(currentMenu)}
-      </MenuPopover>
-      </Menu>
-  )
+      <MenuPopover>{renderMenu(currentMenu)}</MenuPopover>
+    </Menu>
+  );
 }

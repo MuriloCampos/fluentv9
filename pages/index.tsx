@@ -1,66 +1,61 @@
 import type { NextPage } from 'next'
 import * as React from 'react';
-import {
-  makeStyles,
-  FluentProvider,
-  webDarkTheme,
-} from '@fluentui/react-components';
-import { MenuProvider } from '../components/MenuProvider'
-import { MenuRenderer } from '../components/MenuRenderer'
+import { FluentProvider, webDarkTheme } from '@fluentui/react-components';
 
-export const useMenuListContainerStyles = makeStyles({
-  container: theme => ({
+import { MenuProvider } from '../components/MenuProvider';
+import { MenuRenderer } from '../components/MenuRenderer';
+
+// There are some weird typing issues with makeStyles ever since I updated to the RC of fluent v9
+// I'll go back to using makeStyles once this is solved
+export const styles = {
+  container: {
     backgroundColor: 'rgba(41, 40, 39, 0.8)',
     width: '275px',
-    boxShadow: `${theme.shadow16}`,
     borderRadius: '2px',
     color: '#F3F2F1'
-  }),
-  center: () => ({
+  },
+  center: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
     width: '100vw',
     height: '100vh'
-  }),
-  buttonStyle: () => ({
+  },
+  buttonStyle: {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     border: 'none',
     outline: 'none',
     padding: 0
-  }),
-  backButtonStyle: () => ({
+  },
+  backButtonStyle: {
     width: '100%',
     border: 'none',
     outline: 'none',
     padding: '8px',
     display: 'flex',
-    justifyContent: 'flex-start ' 
-  }),
-  itemStyle: () => ({
-    padding: '8px',
-  }),
-  itemTooltip: () => ({
+    justifyContent: 'flex-start'
+  },
+  itemStyle: {
+    padding: '4px 8px'
+  },
+  itemTooltip: {
     color: '#C8C6C4',
-    padding: 0,
-  })
-});
+    padding: 0
+  }
+};
 
 const Home: NextPage = () => {
-  const styles = useMenuListContainerStyles();
-
   return (
     <FluentProvider theme={webDarkTheme}>
       <MenuProvider>
-        <main className={styles.center}>
+        <div style={styles.center}>
           <MenuRenderer />
-          {/* <CaptionsMenuRenderer /> */}
-        </main>
+        </div>
       </MenuProvider>
     </FluentProvider>
-  )
+  );
 }
 
-export default Home
+export default Home;
